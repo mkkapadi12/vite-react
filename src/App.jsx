@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Contacts from "./pages/Contacts";
 import { Logout } from "./pages/Logout";
 import Login from "./pages/Login";
+import HeroSection from "./pages/HeroSection";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Contacts/>
       <Logout/>
       <Contacts />
+      <HeroSection/>
     </>
   );
 };
