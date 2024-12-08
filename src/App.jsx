@@ -5,6 +5,7 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Contact from "./pages/Contact.jsx";
+import Services from "./pages/Services.jsx";
 import Login from "./pages/Login.jsx";
 import Logout from "./pages/Logout.jsx";
 import AppLayout from "./components/appLayout/AppLayout.jsx";
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <Contact />,
+      },
+      {
+        path: "services",
+        element: <Services />,
       },
       {
         path: "login",
