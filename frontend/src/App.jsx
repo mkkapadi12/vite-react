@@ -31,7 +31,7 @@ function App() {
       {isSubmitting && <div>Loading...</div>}
       <form action="" onSubmit={handleSubmit(onSubmit)}>
         <input
-          className="p-4 border text-white bg-slate-600"
+          className="p-4 text-white border bg-slate-600"
           type="text"
           placeholder="Enter Name"
           {...register("username", {
@@ -43,7 +43,7 @@ function App() {
         {errors.username && <div>{errors.username.message}</div>}
         <br />
         <input
-          className="p-4 border text-white bg-slate-600"
+          className="p-4 text-white border bg-slate-600"
           type="password"
           placeholder="Enter Password "
           {...register("password", {
@@ -57,7 +57,7 @@ function App() {
         {errors.password && <div>{errors.password.message}</div>}
         <br />
         <input
-          className="px-4 py-2 border text-white bg-blue-600"
+          className="px-4 py-2 text-white bg-blue-600 border"
           type="submit"
           disabled={isSubmitting}
         />
