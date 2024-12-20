@@ -1,46 +1,71 @@
-import React from "react";
-import { RouterProvider } from "react-router-dom";
-import { createBrowserRouter } from "react-router-dom";
-import ErrorPage from "./pages/ErrorPage.jsx";
-import Home from "./pages/Home.jsx";
-import About from "./pages/About.jsx";
-import Contact from "./pages/Contact.jsx";
-import Login from "./pages/Login.jsx";
-import Logout from "./pages/Logout.jsx";
-import AppLayout from "./components/appLayout/AppLayout.jsx";
+import { useForm } from "react-hook-form";
+import "./App.css";
+import axios from "axios";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <AppLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        path: "",
-        element: <Home />,
-      },
-      {
-        path: "about",
-        element: <About />,
-      },
-      {
-        path: "contact",
-        element: <Contact />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
-      {
-        path: "logout",
-        element: <Logout />,
-      },
-    ],
-  },
-]);
+function App() {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm();
 
-const App = () => {
-  return <RouterProvider router={router}/>
-};
+  let delay = (d) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve();
+      }, d * 1000);
+    });
+  };
+
+  let onSubmit = async (data) => {
+    try {
+      const response = await axios.post("/api/data", data); // Send form data
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error in POST request:", error);
+    }
+  };
+  return (
+    <>
+      {isSubmitting && <div>Loading...</div>}
+      <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <input
+          className="p-4 border text-white bg-slate-600"
+          type="text"
+          placeholder="Enter Name"
+          {...register("username", {
+            required: { value: true, message: "this feild is required" },
+            minLength: { value: 2, message: "minimum length is 2" },
+            maxLength: { value: 8, message: "maximun length is 8" },
+          })}
+        />
+        {errors.username && <div>{errors.username.message}</div>}
+        <br />
+        <input
+          className="p-4 border text-white bg-slate-600"
+          type="password"
+          placeholder="Enter Password "
+          {...register("password", {
+            required: {
+              value: true,
+              message: "this feild is required is also",
+            },
+            minLength: { value: 5, message: "minimum length is 5" },
+          })}
+        />
+        {errors.password && <div>{errors.password.message}</div>}
+        <br />
+        <input
+          className="px-4 py-2 border text-white bg-blue-600"
+          type="submit"
+          disabled={isSubmitting}
+        />
+        {errors.myform && <div>{errors.myform.message}</div>}
+        {errors.blocked && <div>{errors.blocked.message}</div>}
+      </form>
+    </>
+  );
+}
 
 export default App;
