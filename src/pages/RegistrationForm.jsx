@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 // import axios from "axios";
 import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
 
 const RegistrationForm = () => {
+  const form = useRef();
   const {
     register,
     handleSubmit,
@@ -11,8 +13,26 @@ const RegistrationForm = () => {
     formState: { errors },
   } = useForm();
 
+  const sendEmail = () => {
+    // e.preventDefault();
+
+    emailjs
+      .sendForm("service_p0ey22u", "template_wm4hx0p", form.current, {
+        publicKey: "v6ENU5LdMnG_zzaKO",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+  };
+
   const onSubmit = async (data) => {
     try {
+      sendEmail();
       console.log(data);
       const response = await fetch("/api/user", {
         method: "POST",
@@ -39,7 +59,11 @@ const RegistrationForm = () => {
       </div>
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg md:w-1/2">
         <h1 className="mb-6 text-3xl font-bold text-center">Welcome</h1>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          ref={form}
+          className="space-y-4"
+        >
           <div>
             <label
               htmlFor="name"
