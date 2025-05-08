@@ -1,1 +1,4 @@
-export const ICONS = {};
+export const ICONS = {
+  HOME: "",
+  ABOUT: "",
+};
