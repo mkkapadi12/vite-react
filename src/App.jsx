@@ -8,6 +8,8 @@ const Users = () => <h1 className="p-6 text-xl">Users Page</h1>;
 const Orders = () => <h1 className="p-6 text-xl">Orders Page</h1>;
 const Settings = () => <h1 className="p-6 text-xl">Settings Page</h1>;
 
+//App function
+
 const App = () => {
   return (
     <SidebarProvider>
